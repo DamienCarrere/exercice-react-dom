@@ -1,9 +1,12 @@
+import "./contact.css";
+
 export default function Contact() {
 	const envoyerFormulaire = (e) => {
 		e.preventDefault();
 		alert("Formulaire envoyé, retrouvez-le dans votre console navigateur!");
 		console.log("Nom:", e.target.name.value);
 		console.log("Email:", e.target.email.value);
+		console.log("Téléphone:", e.target.telephone.value);
 		console.log("Message:", e.target.message.value);
 		e.target.reset();
 	};
@@ -31,6 +34,18 @@ export default function Contact() {
 				<label>
 					Email :
 					<input type="email" name="email" required />
+				</label>
+				<br />
+
+				<label>
+					Numéro de téléphone:
+					<input
+						type="tel"
+						name="telephone"
+						pattern="[0-9]{10}"
+						placeholder="0123456789"
+						required
+					/>
 				</label>
 				<br />
 
