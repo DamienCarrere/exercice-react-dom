@@ -1,13 +1,32 @@
+import { useState, useEffect } from "react";
 import "./contact.css";
 
 export default function Contact() {
+	const [nom, setNom] = useState("");
+	const [email, setEmail] = useState("");
+	const [telephone, setTelephone] = useState("");
+	const [message, setMessage] = useState("");
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		console.log("Data mise à jour:", data);
+	}, [data]);
+
 	const envoyerFormulaire = (e) => {
 		e.preventDefault();
+
+		const nouveauForm = { nom, email, telephone, message };
+		setData((ancienForm) => [...ancienForm, nouveauForm]);
+
 		alert("Formulaire envoyé, retrouvez-le dans votre console navigateur!");
-		console.log("Nom:", e.target.name.value);
-		console.log("Email:", e.target.email.value);
-		console.log("Téléphone:", e.target.telephone.value);
-		console.log("Message:", e.target.message.value);
+		// console.log(`Nom: ${nom}`);
+		// console.log(`Email: ${email}`);
+		// console.log(`Téléphone: ${telephone}`);
+		// console.log(`Message: ${message}`);
+		setNom("");
+		setEmail("");
+		setTelephone("");
+		setMessage("");
 		e.target.reset();
 	};
 
@@ -27,13 +46,23 @@ export default function Contact() {
 			<form onSubmit={envoyerFormulaire}>
 				<label>
 					Nom :
-					<input type="text" name="name" required />
+					<input
+						type="text"
+						name="name"
+						onChange={(e) => setNom(e.target.value)}
+						required
+					/>
 				</label>
 				<br />
 
 				<label>
 					Email :
-					<input type="email" name="email" required />
+					<input
+						type="email"
+						name="email"
+						onChange={(e) => setEmail(e.target.value)}
+						required
+					/>
 				</label>
 				<br />
 
@@ -44,6 +73,7 @@ export default function Contact() {
 						name="telephone"
 						pattern="[0-9]{10}"
 						placeholder="0123456789"
+						onChange={(e) => setTelephone(e.target.value)}
 						required
 					/>
 				</label>
@@ -51,7 +81,12 @@ export default function Contact() {
 
 				<label>
 					Message :
-					<textarea name="message" rows="5" required></textarea>
+					<textarea
+						name="message"
+						rows="5"
+						onChange={(e) => setMessage(e.target.value)}
+						required
+					></textarea>
 				</label>
 				<br />
 
